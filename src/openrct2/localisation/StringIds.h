@@ -3967,9 +3967,11 @@ enum
 
     STR_STRING_STRINGID = 6329,
     STR_DOWNLOADING_OBJECTS_FROM = 6330,
+    
+    STR_OPTIONS_RANDOM_TITLE_SEQUENCE = 6331,
 
     // Have to include resource strings (from scenarios and objects) for the time being now that language is partially working
-    STR_COUNT = 32768
+    STR_COUNT = 32769
 };
 
 #endif
