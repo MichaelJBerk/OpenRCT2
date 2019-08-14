@@ -912,7 +912,6 @@ static void window_options_mouseup(rct_window* w, rct_widgetindex widgetIndex)
                     window_close_by_class(WC_SCENARIO_SELECT);
                     break;
                 case WIDX_TITLE_SEQUENCE_RANDOM:
-                    //TODO: Make it functional
                     gConfigInterface.random_title_sequence ^=1;
                     config_save_default();
                     printf("Random \n");
