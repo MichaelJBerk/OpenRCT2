@@ -24,9 +24,11 @@
 #include "../interface/Window.h"
 #include "../localisation/Localisation.h"
 #include "../network/network.h"
+#include "../platform/platform.h"
 #include "../scenario/Scenario.h"
 #include "../scenario/ScenarioRepository.h"
 #include "../ui/UiContext.h"
+#include "../util/Util.h"
 #include "TitleSequence.h"
 #include "TitleSequenceManager.h"
 #include "TitleSequencePlayer.h"
@@ -225,12 +227,17 @@ void TitleScreen::TitleInitialise()
     {
         _sequencePlayer = GetContext()->GetUiContext()->GetTitleSequencePlayer();
     }
-    if (gConfigInterface.random_title_sequence) {
-        int total = TitleSequenceManager::GetCount();
-        int random = rand() % total --;
-        const utf8* randomSequence = title_sequence_manager_get_name(random);
+    if (gConfigInterface.random_title_sequence)
+    {
+        size_t total = TitleSequenceManager::GetCount();
+        int32_t random = util_rand() % (int32_t)total--;
+        while (!platform_file_exists(title_sequence_manager_get_path(random)))
+        {
+            // std::cout << title_sequence_manager_get_path(random);
+            random = util_rand() % (int32_t)total--;
+        } // title_sequence_manager_get_path
+
         ChangePresetSequence(random);
-        
     }
     size_t seqId = title_get_config_sequence();
     if (seqId == SIZE_MAX)
@@ -241,7 +248,10 @@ void TitleScreen::TitleInitialise()
             seqId = 0;
         }
     }
-    ChangePresetSequence((int32_t)seqId);
+    Console::Write(gScenarioExpansionPacks);
+   // Console::Write(rct2_install_info::expansionPackNames());
+        // Console::Write(hey);
+        ChangePresetSequence((int32_t)seqId);
 }
 
 bool TitleScreen::TryLoadSequence(bool loadPreview)
