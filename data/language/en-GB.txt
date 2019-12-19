@@ -3654,6 +3654,7 @@ STR_6331    :Create Ducks
 STR_6332    :Remove Ducks
 STR_6333    :Increase scale factor
 STR_6334    :Decrease scale factor
+STR_6335    :Random title sequence
 
 #############
 # Scenarios #
